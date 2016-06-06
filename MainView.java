@@ -37,6 +37,8 @@ public class MainView
 	private static Color darkYellow = new Color(204, 204, 0);
 	private static Color lightYellow = new Color(255, 255, 51);
 	
+	private static Color black = new Color(0, 0, 0);
+	
 	
 	// Create timers that will be used later to trigger threaded tasks.
 	private static Timer timer_Panel0 = new Timer();
@@ -130,6 +132,7 @@ public class MainView
 		panelButtons = new JPanel();
 		panelButtons.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelButtons.setBounds(10, 101, 329, 288);
+		panelButtons.setBackground(black);
 		frame.getContentPane().add(panelButtons);
 		panelButtons.setLayout(null);
 		
