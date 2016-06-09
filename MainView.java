@@ -16,12 +16,13 @@ public class MainView
 	private JFrame frame;
 	public static MainView window;
 	private static JPanel panelTitle;
+	
 	private static JPanel panelButtons;
 	private static JPanel panelGreen;
 	private static JPanel panelRed;
 	private static JPanel panelYellow;
 	private static JPanel panelBlue;
-	private static final long illuminationTime = 500;
+	private static final long ILLUMINATIONTIME = 500;
 	
 	/*
 	 * Some button colors...
@@ -223,7 +224,7 @@ public class MainView
 		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer.schedule(task, illuminationTime);
+		timer.schedule(task, ILLUMINATIONTIME);
 	
 	}
 	
@@ -254,7 +255,7 @@ public class MainView
 		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer.schedule(task, illuminationTime);
+		timer.schedule(task, ILLUMINATIONTIME);
 	
 	}
 	
@@ -285,7 +286,7 @@ public class MainView
 		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer.schedule(task, illuminationTime);
+		timer.schedule(task, ILLUMINATIONTIME);
 	
 	}
 	
@@ -316,7 +317,7 @@ public class MainView
 		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer.schedule(task, illuminationTime);
+		timer.schedule(task, ILLUMINATIONTIME);
 	
 	}
 	
