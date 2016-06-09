@@ -17,10 +17,11 @@ public class MainView
 	public static MainView window;
 	private static JPanel panelTitle;
 	private static JPanel panelButtons;
-	private static JPanel panel0;
-	private static JPanel panel1;
-	private static JPanel panel2;
-	private static JPanel panel3;
+	private static JPanel panelGreen;
+	private static JPanel panelRed;
+	private static JPanel panelYellow;
+	private static JPanel panelBlue;
+	private static final long illuminationTime = 500;
 	
 	/*
 	 * Some button colors...
@@ -39,13 +40,6 @@ public class MainView
 	
 	private static Color black = new Color(0, 0, 0);
 	
-	
-	// Create timers that will be used later to trigger threaded tasks.
-	private static Timer timer_Panel0 = new Timer();
-	private static Timer timer_Panel1 = new Timer();
-	private static Timer timer_Panel2 = new Timer();
-	private static Timer timer_Panel3 = new Timer();
-
 	
 	
 	/**
@@ -146,154 +140,193 @@ public class MainView
 		/*
 		 * The green button panel.
 		 */
-		panel0 = new JPanel();
-		panel0.addMouseListener(new MouseAdapter() 
+		panelGreen = new JPanel();
+		panelGreen.addMouseListener(new MouseAdapter() 
 		{
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
-				lightenPanel0();
+				illumPanelGreen();
 			}
 		});
-		panel0.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel0.setBackground(darkGreen);
-		panel0.setBounds(10, 11, 150, 125);
-		panelButtons.add(panel0);
+		panelGreen.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelGreen.setBackground(darkGreen);
+		panelGreen.setBounds(10, 11, 150, 125);
+		panelButtons.add(panelGreen);
 		
 		/*
 		 * The red button panel.
 		 */
-		panel1 = new JPanel();
-		panel1.addMouseListener(new MouseAdapter() 
+		panelRed = new JPanel();
+		panelRed.addMouseListener(new MouseAdapter() 
 		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				lightenPanel1();
+				illumPanelRed();
 			}
 		});
-		panel1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel1.setBackground(darkRed);
-		panel1.setBounds(170, 11, 150, 125);
-		panelButtons.add(panel1);
+		panelRed.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelRed.setBackground(darkRed);
+		panelRed.setBounds(170, 11, 150, 125);
+		panelButtons.add(panelRed);
 		
 		/*
 		 * The yellow button panel.
 		 */
-		panel2 = new JPanel();
-		panel2.addMouseListener(new MouseAdapter() 
+		panelYellow = new JPanel();
+		panelYellow.addMouseListener(new MouseAdapter() 
 		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				lightenPanel2();
+				illumPanelYellow();
 			}
 		});
-		panel2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel2.setBackground(darkYellow);
-		panel2.setBounds(10, 152, 150, 125);
-		panelButtons.add(panel2);
+		panelYellow.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelYellow.setBackground(darkYellow);
+		panelYellow.setBounds(10, 152, 150, 125);
+		panelButtons.add(panelYellow);
 		
 		/*
 		 * The blue button panel.
 		 */
-		panel3 = new JPanel();
-		panel3.addMouseListener(new MouseAdapter() 
+		panelBlue = new JPanel();
+		panelBlue.addMouseListener(new MouseAdapter() 
 		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				lightenPanel3();
+				illumPanelBlue();
 			}
 		});
-		panel3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel3.setBackground(darkBlue);
-		panel3.setBounds(170, 152, 150, 125);
-		panelButtons.add(panel3);
+		panelBlue.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelBlue.setBackground(darkBlue);
+		panelBlue.setBounds(170, 152, 150, 125);
+		panelButtons.add(panelBlue);
 	} // end initialize
 	
-	
-	public static void lightenPanel0()
+	/**
+	 * Illuminate the panel.  Also creates a new thread
+	 * that will return the panel to a dimmed state after a
+	 * period of time.
+	 */
+	public static void illumPanelGreen()
 	{
 		// Set the background color to a lighter color.
-		panel0.setBackground(lightGreen);
-		
+		panelGreen.setBackground(lightGreen);		
 		
 		// Create an instance of the task to be scheduled.
-		Task_Panel0Dim task = new Task_Panel0Dim();
+		Task_PanelGreenDim task = new Task_PanelGreenDim();
+		
+		// Create an instance of a timer for scheduling the task.
+		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer_Panel0.schedule(task, 500);
+		timer.schedule(task, illuminationTime);
 	
 	}
 	
-	public static void dimPanel0()
+	/**
+	 * Returns the panel to a default state - not illuminated.
+	 */
+	public static void dimPanelGreen()
 	{
 		// Set the background back to it's default color.
-		panel0.setBackground(darkGreen);
+		panelGreen.setBackground(darkGreen);
 		
 	}
 	
-	public static void lightenPanel1()
+	/**
+	 * Illuminate the panel.  Also creates a new thread
+	 * that will return the panel to a dimmed state after a
+	 * period of time.
+	 */
+	public static void illumPanelRed()
 	{
 		// Set the background color to a lighter color.
-		panel1.setBackground(lightRed);
-		
+		panelRed.setBackground(lightRed);
 		
 		// Create an instance of the task to be scheduled.
-		Task_Panel1Dim task = new Task_Panel1Dim();
+		Task_PanelRedDim task = new Task_PanelRedDim();
+		
+		// Create an instance of a timer for scheduling the task.
+		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer_Panel1.schedule(task, 500);
+		timer.schedule(task, illuminationTime);
 	
 	}
 	
-	public static void dimPanel1()
+	/**
+	 * Returns the panel to a default state - not illuminated.
+	 */
+	public static void dimPanelRed()
 	{
 		// Set the background back to it's default color.
-		panel1.setBackground(darkRed);
+		panelRed.setBackground(darkRed);
 		
 	}
 	
-	public static void lightenPanel2()
+	/**
+	 * Illuminate the panel.  Also creates a new thread
+	 * that will return the panel to a dimmed state after a
+	 * period of time.
+	 */
+	public static void illumPanelYellow()
 	{
 		// Set the background color to a lighter color.
-		panel2.setBackground(lightYellow);
-		
+		panelYellow.setBackground(lightYellow);
 		
 		// Create an instance of the task to be scheduled.
-		Task_Panel2Dim task = new Task_Panel2Dim();
+		Task_PanelYellow task = new Task_PanelYellow();
+		
+		// Create an instance of a timer for scheduling the task.
+		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer_Panel2.schedule(task, 500);
+		timer.schedule(task, illuminationTime);
 	
 	}
 	
-	public static void dimPanel2()
+	/**
+	 * Returns the panel to a default state - not illuminated.
+	 */
+	public static void dimPanelYellow()
 	{
 		// Set the background back to it's default color.
-		panel2.setBackground(darkYellow);
+		panelYellow.setBackground(darkYellow);
 		
 	}
 	
-	public static void lightenPanel3()
+	/**
+	 * Illuminate the panel.  Also creates a new thread
+	 * that will return the panel to a dimmed state after a
+	 * period of time.
+	 */
+	public static void illumPanelBlue()
 	{
 		// Set the background color to a lighter color.
-		panel3.setBackground(lightBlue);
-		
+		panelBlue.setBackground(lightBlue);
 		
 		// Create an instance of the task to be scheduled.
-		Task_Panel3Dim task = new Task_Panel3Dim();
+		Task_PanelBlue task = new Task_PanelBlue();
+		
+		// Create an instance of a timer for scheduling the task.
+		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer_Panel3.schedule(task, 500);
+		timer.schedule(task, illuminationTime);
 	
 	}
 	
-	public static void dimPanel3()
+	/**
+	 * Returns the panel to a default state - not illuminated.
+	 */
+	public static void dimPanelBlue()
 	{
 		// Set the background back to it's default color.
-		panel3.setBackground(darkBlue);
+		panelBlue.setBackground(darkBlue);
 		
 	}
 	
