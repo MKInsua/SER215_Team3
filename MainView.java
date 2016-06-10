@@ -142,7 +142,7 @@ public class MainView
 		JLabel labelSimonImage = new JLabel("");
 		labelSimonImage.setBackground(Color.WHITE);
 		labelSimonImage.setHorizontalAlignment(SwingConstants.CENTER);
-		labelSimonImage.setIcon(new ImageIcon(MainView.class.getResource("/Images/SimonImage.PNG")));
+		labelSimonImage.setIcon(new ImageIcon(MainView.class.getResource("/SimonImage.PNG")));
 		
 		panelTitleImage.add(labelSimonImage);
 		
