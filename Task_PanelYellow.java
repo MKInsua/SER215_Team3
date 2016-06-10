@@ -2,14 +2,14 @@
 import java.util.TimerTask;
 
 
-public class Task_Panel0Dim extends TimerTask 
+public class Task_PanelYellow extends TimerTask 
 {
 
 	
 	public void run() 
 	{
 		
-		MainView.dimPanel0();		
+		MainView.dimPanelYellow();		
 
 	} // end run()
 

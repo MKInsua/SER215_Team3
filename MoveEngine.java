@@ -35,13 +35,13 @@ public class MoveEngine {
 	
 	public void displayMove(int move){
 		if (move == 0)
-			 MainView.lightenPanel0();
+			 MainView.illumPanelGreen();
 		if (move == 1)
-			 MainView.lightenPanel1();
+			 MainView.illumPanelRed();
 		if (move == 2)
-			 MainView.lightenPanel2();
+			 MainView.illumPanelYellow();
 		if (move == 3)
-			 MainView.lightenPanel3();
+			 MainView.illumPanelBlue();
 	}
 	
 	
