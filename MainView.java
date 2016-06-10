@@ -462,7 +462,7 @@ public class MainView
 	 * 
 	 * @param newLevel the new level to display
 	 */
-	public static void updateLevelDisplay(String newText)
+	public static void updateStatusText(String newText)
 	{
 		lblStatusText.setText(newText);
 	}
