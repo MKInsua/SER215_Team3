@@ -5,6 +5,14 @@ import javax.swing.border.LineBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Timer;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 
 
@@ -15,9 +23,12 @@ public class MainView
 	 */
 	private JFrame frame;
 	public static MainView window;
-	private static JPanel panelTitle;
+	private static JPanel panelTitleImage;
 	
-	private static JPanel panelButtons;
+	private static JLabel lblLevelNumber;
+	private static JLabel lblStatusText;
+	
+	private static JPanel panelGameButtons;
 	private static JPanel panelGreen;
 	private static JPanel panelRed;
 	private static JPanel panelYellow;
@@ -25,7 +36,7 @@ public class MainView
 	private static final long ILLUMINATIONTIME = 500;
 	
 	/*
-	 * Some button colors...
+	 * Some colors for use in the GUI
 	 */
 	private static Color darkGreen = new Color(0, 102, 0);
 	private static Color lightGreen = new Color(51, 255, 51);
@@ -40,6 +51,7 @@ public class MainView
 	private static Color lightYellow = new Color(255, 255, 51);
 	
 	private static Color black = new Color(0, 0, 0);
+	
 	
 	
 	
@@ -108,28 +120,43 @@ public class MainView
 		 *  Main window
 		 */
 		frame = new JFrame();
-		frame.setBounds(100, 100, 364, 439);
+		frame.getContentPane().setBackground(Color.BLACK);
+		frame.setBounds(100, 100, 365, 699);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
 		
 		/*
 		 *  Title panel
 		 */
-		panelTitle = new JPanel();
-		panelTitle.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelTitle.setBounds(10, 11, 329, 82);
+		JPanel panelTitle = new JPanel();
+		panelTitle.setBackground(Color.BLACK);
+		panelTitle.setBounds(10, 13, 329, 98);
 		frame.getContentPane().add(panelTitle);
-		panelTitle.setLayout(null);
+		
+		panelTitleImage = new JPanel();
+		panelTitle.add(panelTitleImage);
+		panelTitleImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelTitleImage.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel labelSimonImage = new JLabel("");
+		labelSimonImage.setBackground(Color.WHITE);
+		labelSimonImage.setHorizontalAlignment(SwingConstants.CENTER);
+		labelSimonImage.setIcon(new ImageIcon(MainView.class.getResource("/SimonImage.PNG")));
+		
+		panelTitleImage.add(labelSimonImage);
+		
 		
 		/*
-		 *  Organizational panel for buttons to reside in
+		 *  Organizational panel for all buttons to reside in
 		 */
-		panelButtons = new JPanel();
-		panelButtons.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelButtons.setBounds(10, 101, 329, 288);
-		panelButtons.setBackground(black);
-		frame.getContentPane().add(panelButtons);
-		panelButtons.setLayout(null);
+		panelGameButtons = new JPanel();
+		panelGameButtons.setBorder(null);
+		panelGameButtons.setBounds(10, 109, 329, 530);
+		panelGameButtons.setBackground(black);
+		frame.getContentPane().add(panelGameButtons);
+		panelGameButtons.setLayout(null);
+		
 		
 		/*
 		 * The buttons that make up the game GUI are below.  
@@ -152,8 +179,8 @@ public class MainView
 		});
 		panelGreen.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelGreen.setBackground(darkGreen);
-		panelGreen.setBounds(10, 11, 150, 125);
-		panelButtons.add(panelGreen);
+		panelGreen.setBounds(10, 146, 150, 125);
+		panelGameButtons.add(panelGreen);
 		
 		/*
 		 * The red button panel.
@@ -169,8 +196,8 @@ public class MainView
 		});
 		panelRed.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelRed.setBackground(darkRed);
-		panelRed.setBounds(170, 11, 150, 125);
-		panelButtons.add(panelRed);
+		panelRed.setBounds(172, 146, 150, 125);
+		panelGameButtons.add(panelRed);
 		
 		/*
 		 * The yellow button panel.
@@ -186,8 +213,8 @@ public class MainView
 		});
 		panelYellow.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelYellow.setBackground(darkYellow);
-		panelYellow.setBounds(10, 152, 150, 125);
-		panelButtons.add(panelYellow);
+		panelYellow.setBounds(10, 287, 150, 125);
+		panelGameButtons.add(panelYellow);
 		
 		/*
 		 * The blue button panel.
@@ -203,9 +230,89 @@ public class MainView
 		});
 		panelBlue.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelBlue.setBackground(darkBlue);
-		panelBlue.setBounds(170, 152, 150, 125);
-		panelButtons.add(panelBlue);
+		panelBlue.setBounds(172, 287, 150, 125);
+		panelGameButtons.add(panelBlue);
+		
+		/*
+		 * An organizational panel for the game control buttons.
+		 */
+		JPanel panelGameControl = new JPanel();
+		panelGameControl.setBorder(null);
+		panelGameControl.setBounds(10, 31, 312, 87);
+		panelGameButtons.add(panelGameControl);
+		panelGameControl.setLayout(new GridLayout(0, 3, 0, 0));
+		
+		/*
+		 * The start button.
+		 */
+		JButton btnStart = new JButton("Start");
+		btnStart.setFont(new Font("Bauhaus 93", Font.BOLD, 16));
+		btnStart.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				System.out.println("start pressed");
+			}
+		});
+		panelGameControl.add(btnStart);
+		
+		/*
+		 * The reset button.
+		 */
+		JButton btnNewButton_1 = new JButton("Reset");
+		btnNewButton_1.setFont(new Font("Bauhaus 93", Font.BOLD, 16));
+		btnNewButton_1.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				System.out.println("reset pressed");
+			}
+		});
+		panelGameControl.add(btnNewButton_1);
+		
+		/*
+		 * An organizational panel for the level display.
+		 */
+		JPanel panelLevel = new JPanel();
+		panelLevel.setBorder(new LineBorder(Color.WHITE));
+		panelLevel.setForeground(Color.WHITE);
+		panelLevel.setBackground(Color.BLACK);
+		panelGameControl.add(panelLevel);
+		panelLevel.setLayout(null);
+		
+		/*
+		 * The actual text label.
+		 */
+		JLabel lblLevelText = new JLabel("Level:");
+		lblLevelText.setForeground(Color.WHITE);
+		lblLevelText.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLevelText.setBounds(12, 15, 80, 16);
+		panelLevel.add(lblLevelText);
+		
+		/*
+		 * The displayed level number, this is the number that will be
+		 * to show the level progress.
+		 */
+		lblLevelNumber = new JLabel("999");
+		lblLevelNumber.setForeground(Color.WHITE);
+		lblLevelNumber.setBounds(29, 44, 45, 30);
+		panelLevel.add(lblLevelNumber);
+		lblLevelNumber.setFont(new Font("Verdana", Font.PLAIN, 24));
+		lblLevelNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		/*
+		 * A text label for displaying the game status,
+		 */
+		lblStatusText = new JLabel("YOU LOST!!!");
+		lblStatusText.setHorizontalAlignment(SwingConstants.CENTER);
+		lblStatusText.setFont(new Font("Bauhaus 93", Font.BOLD, 29));
+		lblStatusText.setForeground(Color.WHITE);
+		lblStatusText.setBounds(12, 441, 310, 84);
+		panelGameButtons.add(lblStatusText);
+		
 	} // end initialize
+	
+	
 	
 	/**
 	 * Illuminate the panel.  Also creates a new thread
@@ -228,6 +335,7 @@ public class MainView
 	
 	}
 	
+	
 	/**
 	 * Returns the panel to a default state - not illuminated.
 	 */
@@ -237,6 +345,7 @@ public class MainView
 		panelGreen.setBackground(darkGreen);
 		
 	}
+	
 	
 	/**
 	 * Illuminate the panel.  Also creates a new thread
@@ -259,6 +368,7 @@ public class MainView
 	
 	}
 	
+	
 	/**
 	 * Returns the panel to a default state - not illuminated.
 	 */
@@ -268,6 +378,7 @@ public class MainView
 		panelRed.setBackground(darkRed);
 		
 	}
+	
 	
 	/**
 	 * Illuminate the panel.  Also creates a new thread
@@ -290,6 +401,7 @@ public class MainView
 	
 	}
 	
+	
 	/**
 	 * Returns the panel to a default state - not illuminated.
 	 */
@@ -299,6 +411,7 @@ public class MainView
 		panelYellow.setBackground(darkYellow);
 		
 	}
+	
 	
 	/**
 	 * Illuminate the panel.  Also creates a new thread
@@ -321,6 +434,7 @@ public class MainView
 	
 	}
 	
+	
 	/**
 	 * Returns the panel to a default state - not illuminated.
 	 */
@@ -332,9 +446,25 @@ public class MainView
 	}
 	
 	
+	/**
+	 * Updates the level display on the GUI
+	 * 
+	 * @param newLevel the new level to display
+	 */
+	public static void updateLevelDisplay(int newLevel)
+	{
+		lblLevelNumber.setText(Integer.toString(newLevel));
+	}
 	
 	
-	
-	
+	/**
+	 * Updates the game status display on the GUI
+	 * 
+	 * @param newLevel the new level to display
+	 */
+	public static void updateLevelDisplay(String newText)
+	{
+		lblStatusText.setText(newText);
+	}
 	
 }
