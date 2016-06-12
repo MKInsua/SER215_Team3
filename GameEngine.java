@@ -1,4 +1,3 @@
-
 import java.util.TimerTask;
 
 
@@ -9,6 +8,7 @@ public class GameEngine extends TimerTask
 	private boolean userLost = false;
 	private int userGameButtonInput = 0;
 	private boolean readyForGameButtonInput = false;
+	private MoveEngine sequence = new MoveEngine();
 	
 	
 
@@ -26,7 +26,7 @@ public class GameEngine extends TimerTask
 			 * Game Loop
 			 */
 			
-			System.out.println("game looping");
+			Thread.yield();
 			
 			while (gameStarted == true && userLost == false)
 			{
@@ -37,13 +37,14 @@ public class GameEngine extends TimerTask
 				okToReceiveUserInput = false;
 				readyForGameButtonInput = false;
 				
-				/*
-				 *  generate the next sequence here with additional code
-				 */
+				// adds a move and displays the sequence
 				
-				/*
-				 *  display the sequence to the GUI here with additional code
-				 */
+				sequence.addMove();
+				
+				MainView.updateLevelDisplay(sequence.getLevel());
+				
+				sequence.queueToScreen();
+				
 				
 				// allow the button presses to be used again
 				okToReceiveUserInput = true;
@@ -87,7 +88,10 @@ public class GameEngine extends TimerTask
 						 *  if it does match, clear the input to allow the loop to continue for the
 						 *  next user input
 						 */
-						if (true) // needs condition
+						int numToCheck = sequence.getValue();
+						
+						System.out.println("User Input is " + userGameButtonInput + " : System Number is " + numToCheck);
+						if (userGameButtonInput == numToCheck) // needs condition
 						{
 							userGameButtonInput = 0;
 							
@@ -101,6 +105,7 @@ public class GameEngine extends TimerTask
 							userLost = true;
 							readyForGameButtonInput = false;
 						}
+						
 
 						
 						/*
@@ -108,8 +113,9 @@ public class GameEngine extends TimerTask
 						 *  turn off readyForGameButtonInput to allow the while loop to close, and move
 						 *  back to the top of the game loop to generate the next sequence
 						 */
-						if(true) // needs condition
+						if(sequence.checkSize() == 0) // needs condition
 						{
+							
 							readyForGameButtonInput = false;
 						}
 						
@@ -125,10 +131,12 @@ public class GameEngine extends TimerTask
 						 *  
 						 *  write a message to the GUI etc.
 						 */
+						MainView.updateStatusText("You Lost!!!");
 						
 						// set this to end the game loop and allow the user to restart the game
 						gameStarted = false;
 						okToReceiveUserInput = true;
+						sequence.removeAll();
 					}
 					
 					
@@ -164,6 +172,8 @@ public class GameEngine extends TimerTask
 			System.out.println("start request received");
 			
 			gameStarted = true;
+			
+			userLost = false;
 		}
 	}
 	
@@ -175,7 +185,13 @@ public class GameEngine extends TimerTask
 			
 			gameStarted = false;
 			
+			sequence.removeAll();
+			
+			MainView.updateLevelDisplay(sequence.getLevel());
+			
 			MainView.updateStatusText("Game Reset!");
+			
+			
 		}
 	}
 	
