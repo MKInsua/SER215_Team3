@@ -53,6 +53,10 @@ public class MainView
 	private static Color black = new Color(0, 0, 0);
 	
 	
+	// Create a game engine instance
+	public static GameEngine engine = new GameEngine();
+	
+	
 	
 	
 	/**
@@ -87,7 +91,7 @@ public class MainView
 			e.printStackTrace();
 		}
 
-		//testing
+		/* testing
 		MoveEngine test = new MoveEngine();
 		test.addMove();
 		test.queueToScreen();
@@ -99,6 +103,18 @@ public class MainView
 		test.queueToScreen();
 		test.addMove();
 		test.queueToScreen();
+		*/
+		
+	
+		
+		// Create an instance of a timer for scheduling the task.
+		Timer timer = new Timer();
+		
+		// Schedule a task to run after a delay.
+		timer.schedule(engine, ILLUMINATIONTIME);
+			
+		
+		
 		
 	}
 
@@ -136,7 +152,7 @@ public class MainView
 		
 		panelTitleImage = new JPanel();
 		panelTitle.add(panelTitleImage);
-		panelTitleImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelTitleImage.setBorder(null);
 		panelTitleImage.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel labelSimonImage = new JLabel("");
@@ -174,7 +190,7 @@ public class MainView
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
-				illumPanelGreen();
+				engine.reportGreenPressed();
 			}
 		});
 		panelGreen.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -191,7 +207,7 @@ public class MainView
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				illumPanelRed();
+				engine.reportRedPressed();
 			}
 		});
 		panelRed.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -208,7 +224,7 @@ public class MainView
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				illumPanelYellow();
+				engine.reportYellowPressed();
 			}
 		});
 		panelYellow.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -225,7 +241,7 @@ public class MainView
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				illumPanelBlue();
+				engine.reportBluePressed();
 			}
 		});
 		panelBlue.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -251,7 +267,7 @@ public class MainView
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				System.out.println("start pressed");
+				engine.reportStartPressed();
 			}
 		});
 		panelGameControl.add(btnStart);
@@ -265,7 +281,7 @@ public class MainView
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				System.out.println("reset pressed");
+				engine.reportResetPressed();
 			}
 		});
 		panelGameControl.add(btnNewButton_1);
@@ -293,7 +309,7 @@ public class MainView
 		 * The displayed level number, this is the number that will be
 		 * to show the level progress.
 		 */
-		lblLevelNumber = new JLabel("999");
+		lblLevelNumber = new JLabel("0");
 		lblLevelNumber.setForeground(Color.WHITE);
 		lblLevelNumber.setBounds(29, 44, 45, 30);
 		panelLevel.add(lblLevelNumber);
@@ -303,7 +319,7 @@ public class MainView
 		/*
 		 * A text label for displaying the game status,
 		 */
-		lblStatusText = new JLabel("YOU LOST!!!");
+		lblStatusText = new JLabel("Welcome!");
 		lblStatusText.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatusText.setFont(new Font("Bauhaus 93", Font.BOLD, 29));
 		lblStatusText.setForeground(Color.WHITE);
