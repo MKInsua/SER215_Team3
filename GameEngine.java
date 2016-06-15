@@ -1,14 +1,17 @@
 import java.util.TimerTask;
-
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class GameEngine extends TimerTask 
 {
 	private boolean gameStarted = false;
 	private boolean okToReceiveUserInput = true;
 	private boolean userLost = false;
-	private int userGameButtonInput = 0;
 	private boolean readyForGameButtonInput = false;
 	private MoveEngine sequence = new MoveEngine();
+	
+	// Create a Queue to be used to buffer user input.
+	private Queue<Integer> userInputQueue = new LinkedList<Integer>();
 	
 	
 
@@ -57,12 +60,18 @@ public class GameEngine extends TimerTask
 				 */
 				while (readyForGameButtonInput == true && gameStarted == true)
 				{
-					if (userGameButtonInput > 0)
+					if (userInputQueue.size() > 0)
 					{
+						/*
+						 * Retrieve the next buffered user input to work with.
+						 */
+						int lastUserInput = (int) userInputQueue.remove();
+						
+						
 						/*
 						 * Ask the GUI to flash the button the user hit.
 						 */
-						switch (userGameButtonInput)
+						switch (lastUserInput)
 						{
 							case 1:{
 								MainView.illumPanelGreen();
@@ -90,18 +99,14 @@ public class GameEngine extends TimerTask
 						 */
 						int numToCheck = sequence.getValue();
 						
-						System.out.println("User Input is " + userGameButtonInput + " : System Number is " + numToCheck);
-						if (userGameButtonInput == numToCheck) // needs condition
+						System.out.println("User Input is " + lastUserInput + " : System Number is " + numToCheck);
+						if (lastUserInput == numToCheck) // needs condition
 						{
-							userGameButtonInput = 0;
-							
-							System.out.println("button press digested");
-							
-							// get the next color needed ready
+							// it matched, need to do anything?
+	
 						}
 						else // it didn't match
 						{
-							userGameButtonInput = 0;
 							userLost = true;
 							readyForGameButtonInput = false;
 						}
@@ -201,7 +206,9 @@ public class GameEngine extends TimerTask
 		{
 			System.out.println("green button press received");
 			
-			userGameButtonInput = 1;
+			userInputQueue.add((int)1);
+			
+			
 		}
 	}
 	
@@ -211,7 +218,7 @@ public class GameEngine extends TimerTask
 		{
 			System.out.println("red button press received");
 			
-			userGameButtonInput = 2;
+			userInputQueue.add((int)2);
 		}
 	}
 	
@@ -221,7 +228,7 @@ public class GameEngine extends TimerTask
 		{
 			System.out.println("yellow button press received");
 			
-			userGameButtonInput = 3;
+			userInputQueue.add((int)3);
 		}
 	}
 	
@@ -231,7 +238,7 @@ public class GameEngine extends TimerTask
 		{
 			System.out.println("blue button press received");
 			
-			userGameButtonInput = 4;
+			userInputQueue.add((int)4);
 		}
 	}
 	
