@@ -58,7 +58,6 @@ public class MainView
 	
 	
 	
-	
 	/**
 	 * Launch the application.
 	 */
@@ -91,27 +90,12 @@ public class MainView
 			e.printStackTrace();
 		}
 
-		/* testing
-		MoveEngine test = new MoveEngine();
-		test.addMove();
-		test.queueToScreen();
-		test.addMove();
-		test.queueToScreen();
-		test.addMove();
-		test.queueToScreen();
-		test.addMove();
-		test.queueToScreen();
-		test.addMove();
-		test.queueToScreen();
-		*/
-		
 	
-		
 		// Create an instance of a timer for scheduling the task.
 		Timer timer = new Timer();
 		
 		// Schedule a task to run after a delay.
-		timer.schedule(engine, ILLUMINATIONTIME);
+		timer.schedule(engine, 100);
 			
 		
 		
@@ -188,7 +172,7 @@ public class MainView
 		panelGreen.addMouseListener(new MouseAdapter() 
 		{
 			@Override
-			public void mouseClicked(MouseEvent arg0) 
+			public void mouseReleased(MouseEvent arg0) 
 			{
 				engine.reportGreenPressed();
 			}
@@ -205,7 +189,7 @@ public class MainView
 		panelRed.addMouseListener(new MouseAdapter() 
 		{
 			@Override
-			public void mouseClicked(MouseEvent e) 
+			public void mouseReleased(MouseEvent e) 
 			{
 				engine.reportRedPressed();
 			}
@@ -222,7 +206,7 @@ public class MainView
 		panelYellow.addMouseListener(new MouseAdapter() 
 		{
 			@Override
-			public void mouseClicked(MouseEvent e) 
+			public void mouseReleased(MouseEvent e) 
 			{
 				engine.reportYellowPressed();
 			}
@@ -239,7 +223,7 @@ public class MainView
 		panelBlue.addMouseListener(new MouseAdapter() 
 		{
 			@Override
-			public void mouseClicked(MouseEvent e) 
+			public void mouseReleased(MouseEvent e) 
 			{
 				engine.reportBluePressed();
 			}
@@ -482,5 +466,5 @@ public class MainView
 	{
 		lblStatusText.setText(newText);
 	}
-	
+		
 }

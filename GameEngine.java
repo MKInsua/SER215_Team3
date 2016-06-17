@@ -242,10 +242,4 @@ public class GameEngine extends TimerTask
 		}
 	}
 	
-	
-	
-	
-	
-
-	
 }
