@@ -2,17 +2,29 @@ import java.util.*;
 import java.util.Random;
 
 public class MoveEngine {
-	protected int size = 0; 
-	protected Queue<Integer> computerMoves = new LinkedList<Integer>(); 
+	
+	// Class Variables
+	
+	private int size = 0;
+	private int numToCheck;
+	private int count;
+	private Queue<Integer> computerMoves = new LinkedList<Integer>();
+	private Queue<Integer> checkQueue;
+	private Queue<Integer> tempQueue;
+	
+	//Add the next move to the Queue, increases the size variable and sets the temp Queues to computerMoves.
 	
 	public void addMove(){
 		Random randomGenerator = new Random();
-		computerMoves.add(randomGenerator.nextInt(4));
+		computerMoves.add((randomGenerator.nextInt(40) % 4) + 1);
 		size++;
+		tempQueue = new LinkedList<Integer>(computerMoves); 
+		checkQueue = new LinkedList<Integer>(computerMoves);
 	}
 	
+	//Displays the Queue to the GUI.
+	
 	public void queueToScreen(){
-		Queue<Integer> tempQueue = new LinkedList<Integer>(computerMoves); 
 		
 		for (int i = 0; i < size; i++) {
 			try {
@@ -25,24 +37,53 @@ public class MoveEngine {
 		}
 	}
 	
+	//allows the GameEngine to pull the number for the head of the queue
+	
+	public int getValue(){
+		
+		numToCheck = checkQueue.remove();
+		count = checkQueue.size();
+		
+		return numToCheck;
+		
+	}
+	
+	// returns the size of checkQueue
+	
+	public int checkSize(){
+		
+		return count;
+	}
+	
+	// removes all elements from the Queue and resets size to 0
+	
+	public void removeAll(){
+		
+		while (computerMoves.size() > 0){
+			computerMoves.remove();
+		}
+		size = 0;
+	}
+	
+	//returns the size of computerMoves. Represents the level of the game
+	
 	public int getLevel(){
 		return size;
 	}
 	
-	public Queue<Integer> getMoves(){
-		return computerMoves;
-	}
+	//checks the value and displays appropriate panel
 	
-	public void displayMove(int move){
-		if (move == 0)
-			 MainView.illumPanelGreen();
+	private void displayMove(int move){
 		if (move == 1)
-			 MainView.illumPanelRed();
+			 MainView.illumPanelGreen();
 		if (move == 2)
-			 MainView.illumPanelYellow();
+			 MainView.illumPanelRed();
 		if (move == 3)
+			 MainView.illumPanelYellow();
+		if (move == 4)
 			 MainView.illumPanelBlue();
 	}
 	
 	
 }
+
