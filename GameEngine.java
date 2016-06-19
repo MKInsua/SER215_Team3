@@ -9,6 +9,7 @@ public class GameEngine extends TimerTask
 	private boolean userLost = false;
 	private boolean readyForGameButtonInput = false;
 	private MoveEngine sequence = new MoveEngine();
+	private int count = 0;
 	
 	// Create a Queue to be used to buffer user input.
 	private Queue<Integer> userInputQueue = new LinkedList<Integer>();
@@ -28,8 +29,6 @@ public class GameEngine extends TimerTask
 			/*
 			 * Game Loop
 			 */
-			
-			//Thread.yield();
 			
 			/*
 			 *  Update the GUI button text to reflect actions
@@ -56,9 +55,20 @@ public class GameEngine extends TimerTask
 				MainView.updateResetButtonText("");
 				
 				// Tell the user what to do next.
-				MainView.updateStatusText("Watch The Pattern!");
+				if (count == 0){
+					
+					MainView.playIntro();
 				
-				sleep(1000);
+					MainView.updateStatusText("Watch The Pattern!");
+				
+					sleep(3200);
+				}
+				else{
+				
+					MainView.updateStatusText("Watch The Pattern!");
+					
+					sleep(1000);
+				}
 				
 				// adds a move
 				sequence.addMove();
@@ -107,18 +117,22 @@ public class GameEngine extends TimerTask
 						{
 							case 1:{
 								MainView.illumPanelGreen();
+								MainView.playGreenSound();
 								break;
 							}
 							case 2:{
 								MainView.illumPanelRed();
+								MainView.playRedSound();
 								break;
 							}
 							case 3:{
 								MainView.illumPanelYellow();
+								MainView.playYellowSound();
 								break;
 							}
 							case 4:{
 								MainView.illumPanelBlue();
+								MainView.playBlueSound();
 								break;
 							}
 						}
@@ -134,11 +148,24 @@ public class GameEngine extends TimerTask
 						System.out.println("User Input is " + lastUserInput + " : System Number is " + numToCheck);
 						if (lastUserInput == numToCheck) // it matched
 						{
-							
+							count++;
 	
 						}
 						else // it didn't match
 						{
+							sleep(465);
+							
+							for (int i = 0; i < 3; i++){
+								
+								if (i < 2){
+									
+									MainView.playYellowSound();
+									sleep(350);
+								}
+								else
+									MainView.playYellowSound();
+							}
+							count = 0;
 							userLost = true;
 							readyForGameButtonInput = false;
 						}
@@ -299,3 +326,4 @@ public class GameEngine extends TimerTask
 	}
 	
 }
+
