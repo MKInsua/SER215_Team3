@@ -29,31 +29,63 @@ public class GameEngine extends TimerTask
 			 * Game Loop
 			 */
 			
-			Thread.yield();
+			//Thread.yield();
+			
+			/*
+			 *  Update the GUI button text to reflect actions
+			 *  the user can take.
+			 */
+			MainView.updateStartButtonText("Start Game");
+			MainView.updateResetButtonText("");
+			
+			// Tell the user what to do next.
+			MainView.updateStatusText("Press Start To Begin!");
 			
 			while (gameStarted == true && userLost == false)
 			{
 				System.out.println("game loop started");
 				
-				MainView.updateStatusText("Game Started!");
-				
 				okToReceiveUserInput = false;
 				readyForGameButtonInput = false;
 				
-				// adds a move and displays the sequence
+				/*
+				 *  Update the GUI button text to reflect actions
+				 *  the user can take.
+				 */
+				MainView.updateStartButtonText("");
+				MainView.updateResetButtonText("");
 				
+				// Tell the user what to do next.
+				MainView.updateStatusText("Watch The Pattern!");
+				
+				sleep(1000);
+				
+				// adds a move
 				sequence.addMove();
 				
+				// update the level display
 				MainView.updateLevelDisplay(sequence.getLevel());
 				
+				// display the sequence to the GUI
 				sequence.queueToScreen();
 				
+				sleep(1000);
+				
+				// Tell the user what to do next.
+				MainView.updateStatusText("Now Enter The Pattern");
 				
 				// allow the button presses to be used again
 				okToReceiveUserInput = true;
 				
 				// allow for game button input
 				readyForGameButtonInput = true;
+				
+				/*
+				 *  Update the GUI button text to reflect actions
+				 *  the user can take.
+				 */
+				MainView.updateStartButtonText("");
+				MainView.updateResetButtonText("Abort Game");
 				
 				/*
 				 * This loop waits for the user input
@@ -100,9 +132,9 @@ public class GameEngine extends TimerTask
 						int numToCheck = sequence.getValue();
 						
 						System.out.println("User Input is " + lastUserInput + " : System Number is " + numToCheck);
-						if (lastUserInput == numToCheck) // needs condition
+						if (lastUserInput == numToCheck) // it matched
 						{
-							// it matched, need to do anything?
+							
 	
 						}
 						else // it didn't match
@@ -118,10 +150,15 @@ public class GameEngine extends TimerTask
 						 *  turn off readyForGameButtonInput to allow the while loop to close, and move
 						 *  back to the top of the game loop to generate the next sequence
 						 */
-						if(sequence.checkSize() == 0) // needs condition
+						if(sequence.checkSize() == 0 && userLost == false) // needs condition
 						{
+							// Tell the user what to do next.
+							MainView.updateStatusText("That's Correct!");
 							
 							readyForGameButtonInput = false;
+							okToReceiveUserInput = false;
+							
+							sleep(1000);
 						}
 						
 					}
@@ -132,25 +169,34 @@ public class GameEngine extends TimerTask
 					if (userLost == true)
 					{
 						/*
-						 *  end the game
-						 *  
-						 *  write a message to the GUI etc.
+						 *  Update the GUI button text to reflect actions
+						 *  the user can take.
 						 */
+						MainView.updateStartButtonText("");
+						MainView.updateResetButtonText("");
+						
+						// Update the user.
 						MainView.updateStatusText("You Lost!!!");
+						
+						sleep(3000);
 						
 						// set this to end the game loop and allow the user to restart the game
 						gameStarted = false;
 						okToReceiveUserInput = true;
+						
+						/*
+						 *  Update the GUI button text to reflect actions
+						 *  the user can take.
+						 */
+						MainView.updateStartButtonText("Start Game");
+						MainView.updateResetButtonText("");
+						
 						sequence.removeAll();
+						
 					}
 					
 					
-					try {
-						Thread.sleep(1);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					sleep(1);
 					
 				}
 								
@@ -239,6 +285,16 @@ public class GameEngine extends TimerTask
 			System.out.println("blue button press received");
 			
 			userInputQueue.add((int)4);
+		}
+	}
+	
+	public void sleep(long time)
+	{
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
