@@ -1,6 +1,8 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.EventQueue;
+
 import javax.swing.border.LineBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,6 +37,9 @@ public class MainView
 	private static JPanel panelBlue;
 	private static final long ILLUMINATIONTIME = 500;
 	
+	private static JButton btnStart;
+	private static JButton btnReset;
+	
 	/*
 	 * Some colors for use in the GUI
 	 */
@@ -63,44 +68,48 @@ public class MainView
 	 */
 	public static void main(String[] args) 
 	{
-		
-		/*
-		 * create and display the main GUI window
-		 */
-		try 
+		EventQueue.invokeLater(new Runnable() 
 		{
-			// create the main GUI window
-			window = new MainView();
-			
-			// makes the window visible after it is instantiated
-			window.frame.setVisible(true); 
-			
-			// do not let the user resize the window
-			window.frame.setResizable(false); 
-			
-			/*
-			 *  Close all background processes on a user window close, if this
-			 *  is not done, only the window gets closed, but the Java app continues to run in the
-			 *  background.
-			 */
-			window.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-
-	
-		// Create an instance of a timer for scheduling the task.
-		Timer timer = new Timer();
+			public void run() 
+			{
+				/*
+				 * create and display the main GUI window
+				 */
+				try 
+				{
+					// create the main GUI window
+					window = new MainView();
+					
+					// makes the window visible after it is instantiated
+					window.frame.setVisible(true); 
+					
+					// do not let the user resize the window
+					window.frame.setResizable(false); 
+					
+					/*
+					 *  Close all background processes on a user window close, if this
+					 *  is not done, only the window gets closed, but the Java app continues to run in the
+					 *  background.
+					 */
+					window.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					
+				} catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
 		
-		// Schedule a task to run after a delay.
-		timer.schedule(engine, 100);
 			
+				// Create an instance of a timer for scheduling the task.
+				Timer timer = new Timer();
+				
+				// Schedule a task to run after a delay.
+				timer.schedule(engine, 100);
+			
+			} // end run()
+			
+		}); // end invokeLater()
 		
-		
-		
-	}
+	} // end main
 
 	/**
 	 * Create the application via the
@@ -121,7 +130,7 @@ public class MainView
 		 */
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.BLACK);
-		frame.setBounds(100, 100, 365, 699);
+		frame.setBounds(100, 100, 358, 699);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -245,8 +254,8 @@ public class MainView
 		/*
 		 * The start button.
 		 */
-		JButton btnStart = new JButton("Start");
-		btnStart.setFont(new Font("Bauhaus 93", Font.BOLD, 16));
+		btnStart = new JButton("Start\r\n Game");
+		btnStart.setFont(new Font("Bauhaus 93", Font.PLAIN, 12));
 		btnStart.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
@@ -259,16 +268,16 @@ public class MainView
 		/*
 		 * The reset button.
 		 */
-		JButton btnNewButton_1 = new JButton("Reset");
-		btnNewButton_1.setFont(new Font("Bauhaus 93", Font.BOLD, 16));
-		btnNewButton_1.addActionListener(new ActionListener() 
+		btnReset = new JButton("Abort Game");
+		btnReset.setFont(new Font("Bauhaus 93", Font.PLAIN, 12));
+		btnReset.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
 				engine.reportResetPressed();
 			}
 		});
-		panelGameControl.add(btnNewButton_1);
+		panelGameControl.add(btnReset);
 		
 		/*
 		 * An organizational panel for the level display.
@@ -305,9 +314,9 @@ public class MainView
 		 */
 		lblStatusText = new JLabel("Welcome!");
 		lblStatusText.setHorizontalAlignment(SwingConstants.CENTER);
-		lblStatusText.setFont(new Font("Bauhaus 93", Font.BOLD, 29));
+		lblStatusText.setFont(new Font("Bauhaus 93", Font.PLAIN, 24));
 		lblStatusText.setForeground(Color.WHITE);
-		lblStatusText.setBounds(12, 441, 310, 84);
+		lblStatusText.setBounds(12, 425, 310, 100);
 		panelGameButtons.add(lblStatusText);
 		
 	} // end initialize
@@ -460,11 +469,34 @@ public class MainView
 	/**
 	 * Updates the game status display on the GUI
 	 * 
-	 * @param newLevel the new level to display
+	 * @param newText the new text to display
 	 */
 	public static void updateStatusText(String newText)
 	{
 		lblStatusText.setText(newText);
 	}
+	
+	
+	/**
+	 * Updates the the start button's text
+	 * 
+	 * @param newText the new text to display
+	 */
+	public static void updateStartButtonText(String newText)
+	{
+		btnStart.setText(newText);
+	}
+	
+	
+	/**
+	 * Updates the the reset button's text
+	 * 
+	 * @param newText the new text to display
+	 */
+	public static void updateResetButtonText(String newText)
+	{
+		btnReset.setText(newText);
+	}
+	
 		
 }
