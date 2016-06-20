@@ -205,7 +205,7 @@ public class MainView
 		panelGreen.setBounds(10, 146, 150, 125);
 		panelGameButtons.add(panelGreen);
 		
-		greenSound = new File("green_button.wav");
+		greenSound = new File("bin//green_button.wav");
 		
 		/*
 		 * The red button panel.
@@ -224,7 +224,7 @@ public class MainView
 		panelRed.setBounds(172, 146, 150, 125);
 		panelGameButtons.add(panelRed);
 		
-		redSound = new File("red_button.wav");
+		redSound = new File("bin//red_button.wav");
 		
 		/*
 		 * The yellow button panel.
@@ -243,7 +243,7 @@ public class MainView
 		panelYellow.setBounds(10, 287, 150, 125);
 		panelGameButtons.add(panelYellow);
 		
-		yellowSound = new File("yellow_button.wav");
+		yellowSound = new File("bin//yellow_button.wav");
 		
 		/*
 		 * The blue button panel.
@@ -262,7 +262,7 @@ public class MainView
 		panelBlue.setBounds(172, 287, 150, 125);
 		panelGameButtons.add(panelBlue);
 		
-		blueSound = new File("blue_button.wav");
+		blueSound = new File("bin//blue_button.wav");
 		
 		/*
 		 * An organizational panel for the game control buttons.
@@ -287,7 +287,7 @@ public class MainView
 		});
 		panelGameControl.add(btnStart);
 		
-		intro = new File("intro.wav");
+		intro = new File("bin//intro.wav");
 		
 		/*
 		 * The reset button.
