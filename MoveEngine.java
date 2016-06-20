@@ -74,14 +74,22 @@ public class MoveEngine {
 	//checks the value and displays appropriate panel
 	
 	private void displayMove(int move){
-		if (move == 1)
-			 MainView.illumPanelGreen();
-		if (move == 2)
-			 MainView.illumPanelRed();
-		if (move == 3)
+		if (move == 1){
+			MainView.illumPanelGreen();
+			MainView.playGreenSound();
+		}
+		if (move == 2){
+			MainView.illumPanelRed();
+			MainView.playRedSound();
+		}
+		if (move == 3){
 			 MainView.illumPanelYellow();
-		if (move == 4)
+			 MainView.playYellowSound();
+		}
+		if (move == 4){
 			 MainView.illumPanelBlue();
+			 MainView.playBlueSound();
+		}
 	}
 	
 	
