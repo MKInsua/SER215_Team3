@@ -6,7 +6,6 @@ import java.awt.EventQueue;
 import javax.swing.border.LineBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.util.Timer;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -15,9 +14,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 
 
@@ -43,16 +39,6 @@ public class MainView
 	
 	private static JButton btnStart;
 	private static JButton btnReset;
-	
-	/*
-	 * Variable for sounds that will be used
-	 */
-	
-	private static File greenSound;
-	private static File redSound; 
-	private static File yellowSound;
-	private static File blueSound;
-	private static File intro;
 	
 	/*
 	 * Some colors for use in the GUI
@@ -205,8 +191,6 @@ public class MainView
 		panelGreen.setBounds(10, 146, 150, 125);
 		panelGameButtons.add(panelGreen);
 		
-		greenSound = new File("bin//green_button.wav");
-		
 		/*
 		 * The red button panel.
 		 */
@@ -223,8 +207,6 @@ public class MainView
 		panelRed.setBackground(darkRed);
 		panelRed.setBounds(172, 146, 150, 125);
 		panelGameButtons.add(panelRed);
-		
-		redSound = new File("bin//red_button.wav");
 		
 		/*
 		 * The yellow button panel.
@@ -243,8 +225,6 @@ public class MainView
 		panelYellow.setBounds(10, 287, 150, 125);
 		panelGameButtons.add(panelYellow);
 		
-		yellowSound = new File("bin//yellow_button.wav");
-		
 		/*
 		 * The blue button panel.
 		 */
@@ -261,8 +241,6 @@ public class MainView
 		panelBlue.setBackground(darkBlue);
 		panelBlue.setBounds(172, 287, 150, 125);
 		panelGameButtons.add(panelBlue);
-		
-		blueSound = new File("bin//blue_button.wav");
 		
 		/*
 		 * An organizational panel for the game control buttons.
@@ -286,8 +264,6 @@ public class MainView
 			}
 		});
 		panelGameControl.add(btnStart);
-		
-		intro = new File("bin//intro.wav");
 		
 		/*
 		 * The reset button.
@@ -522,43 +498,5 @@ public class MainView
 		btnReset.setText(newText);
 	}
 	
-	public static void playGreenSound(){
-		
-		 playSound(greenSound);
-		 
-	}
-	public static void playRedSound(){
-		
-		 playSound(redSound);
-		 
-	}
-	public static void playYellowSound(){
-		
-		 playSound(yellowSound);
-		 
-	}
-	public static void playBlueSound(){
-		
-		 playSound(blueSound);
-	}
-	public static void playIntro(){
-		 
-		 playSound(intro);
-	}
-	private static void playSound(File sound){
-		
-		 try{
-			 Clip soundEffect = AudioSystem.getClip();
-			 soundEffect.open(AudioSystem.getAudioInputStream(sound));
-			 soundEffect.start();
-			
-		 }
-		 catch(Exception e){
-			 
-		 }
-		 
-	}
-	
 		
 }
-
